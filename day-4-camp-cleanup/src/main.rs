@@ -1,5 +1,6 @@
 use std::{env, fs};
 use std::borrow::Borrow;
+use std::cmp::{max, min};
 use std::collections::HashSet;
 
 struct Range {
@@ -27,8 +28,7 @@ fn main() {
         let range_1 = ranges[0].borrow();
         let range_2 = ranges[1].borrow();
 
-        return range_1.lower_bound >= range_2.lower_bound && range_1.upper_bound <= range_2.upper_bound ||
-            range_2.lower_bound >= range_1.lower_bound && range_2.upper_bound <= range_1.upper_bound;
+        return max(range_1.lower_bound, range_2.lower_bound) <= min(range_1.upper_bound, range_2.upper_bound);
     }).filter(|pred|{pred == &true}).count();
 
     println!("{:?}", overlap_count);
